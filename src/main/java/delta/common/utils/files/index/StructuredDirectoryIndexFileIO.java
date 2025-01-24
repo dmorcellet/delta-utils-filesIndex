@@ -49,20 +49,18 @@ public class StructuredDirectoryIndexFileIO
       long nbFiles=Long.parseLong(nbFilesStr);
       File rootDir=new File(name);
       index=new StructuredDirectoryIndex(rootDir);
-      String nameStr,sizeStr,crcStr;
-      File file;
       for(long i=0;i<nbFiles;i++)
       {
-        nameStr=p.getNextLine();
-        sizeStr=p.getNextLine();
-        crcStr=p.getNextLine();
+        String nameStr=p.getNextLine();
+        String sizeStr=p.getNextLine();
+        String crcStr=p.getNextLine();
         long size=Long.parseLong(sizeStr);
         long crc=Long.parseLong(crcStr);
         if (nameStr.startsWith(name))
         {
           nameStr=nameStr.substring(name.length()+1);
         }
-        file=new File(nameStr);
+        File file=new File(nameStr);
         index.addFile(file,size,crc);
       }
       p.terminate();
